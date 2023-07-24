@@ -34,7 +34,13 @@ export default function TextForm(props) {
     }
 
     function copyText(){
-        navigator.clipboard.writeText(text);
+        var copyText = document.getElementById("myBox");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        document.getSelection().removeAllRanges();
     }
 
     function removeExtraSpace(){
@@ -45,6 +51,8 @@ export default function TextForm(props) {
 
     function clearText(){
         setText("");
+        setNoChar(0);
+        setNoWord(0);
     }
 
     return (
@@ -55,10 +63,10 @@ export default function TextForm(props) {
                 {/* <label htmlFor="myBox" className="form-label">Example textarea</label> */}
                 <textarea className="form-control" value={text} onChange={changeHandler} id="myBox" rows="8"></textarea>
             </div>
-            <button className="btn btn-primary mx-3" onClick={clickHandler}>Convert to upper case</button>
-            <button className="btn btn-primary mx-3" onClick={copyText}>Copy text</button>
-            <button className="btn btn-primary mx-3" onClick={removeExtraSpace}>Remove extra space</button>
-            <button className="btn btn-primary mx-3" onClick={clearText}>Clear text</button>
+            <button className="btn btn-primary mx-3 my-2" onClick={clickHandler}>Convert to upper case</button>
+            <button className="btn btn-primary mx-3 my-2" onClick={copyText}>Copy text</button>
+            <button className="btn btn-primary mx-3 my-2" onClick={removeExtraSpace}>Remove extra space</button>
+            <button className="btn btn-primary mx-3 my-2" onClick={clearText}>Clear text</button>
         </div>
         <div className="container my-3">
             <h1>Your Text Summary</h1>
